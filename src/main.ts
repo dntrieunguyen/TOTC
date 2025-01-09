@@ -3,6 +3,7 @@ import { AppModule } from "./app.module";
 import { ResponseFormatInterceptor } from "./interceptors/response-format.interceptor";
 import { CatchExceptionFilter } from "./interceptors/catch-exceptions.filter";
 import { SwaggerModule, DocumentBuilder } from "@nestjs/swagger";
+import * as CookiesParser from "cookie-parser";
 
 async function bootstrap() {
   const appOptions = {
@@ -11,6 +12,7 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule, appOptions);
 
   // declare global middleware, filter, interceptor
+  app.use(CookiesParser());
   app.useGlobalInterceptors(new ResponseFormatInterceptor());
   app.useGlobalFilters(new CatchExceptionFilter());
 
